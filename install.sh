@@ -66,15 +66,15 @@ if [ ! -x "$INODE_PATH" ]; then
   mkdir $INODE_PATH
 fi
 
+touch $LOG_PATH/install-log
+exec 2>$LOG_PATH/install-log
+
 
 #######################################################################
 # Update and Upgrade
 #######################################################################
 sudo apt-get update
 sudo apt-get upgrade -y
-
-# Install aptitude
-sudo apt-get install aptitude -y
 
 
 #######################################################################
@@ -90,28 +90,28 @@ echo -ne '\n' | sudo add-apt-repository ppa:noobslab/icons
 echo -ne '\n' | sudo add-apt-repository ppa:damien-moore/codeblocks-stable
 # Indicator-sysmonitor
 echo -ne '\n' | sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor
-sudo aptitude update
-sudo aptitude install wiznote docky ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green codeblocks indicator-sysmonitor -y
+sudo apt-get update
+sudo apt-get install wiznote docky ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green codeblocks indicator-sysmonitor -y
 
 # VLC, Unity Tweak Tool, GIMP, Shutter
-sudo aptitude install vlc unity-tweak-tool gimp gimp-gap gimp-helpbrowser gimp-help-common shutter -y
+sudo apt-get install vlc unity-tweak-tool gimp gimp-gap gimp-helpbrowser gimp-help-common shutter -y
 
 # Vim, SSH, Git, Wine
-sudo aptitude install vim openssh-client openssh-server git wine -y
+sudo apt-get install vim openssh-client openssh-server git wine -y
 
 # Config Git
 git config --global user.name "pentonbin"
 git config --global user.email "pentonbin@gmail.com"
 
 # Unzip
-sudo aptitude install unzip -y
+sudo apt-get install unzip -y
 
 # Install deb packages
 cd $DEB_PATH
 # Dpkg install
 sudo dpkg -i *.deb
 # Install dependency
-sudo aptitude -f install -y
+sudo apt-get -f install -y
 
 
 #######################################################################
@@ -237,15 +237,15 @@ fi
 # Others
 #######################################################################
 cd $HOSTS_PATH
-sudo cp hosts /etc/
+if [ -r "hosts" ]; then
+  sudo cp hosts /etc/
+fi
 
 
 #######################################################################
 # Final update & clean
 #######################################################################
-sudo aptitude update
-sudo aptitude upgrade -y
-sudo aptitude clean
-sudo aptitude autoremove -y
-
-
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get clean
+sudo apt-get autoremove -y
