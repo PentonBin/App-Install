@@ -1,6 +1,39 @@
-mkdir: cannot create directory ‘~/JDK’: No such file or directory
-mkdir: cannot create directory ‘~/Android’: No such file or directory
-mkdir: cannot create directory ‘~/Idea’: No such file or directory
-mkdir: cannot create directory ‘~/Pycharm’: No such file or directory
-mkdir: cannot create directory ‘~/Wechat’: No such file or directory
-mkdir: cannot create directory ‘~/iNode’: No such file or directory
+[sudo] password for pentonbin: gpg: keyring `/tmp/tmp0fgj4wu4/secring.gpg' created
+gpg: keyring `/tmp/tmp0fgj4wu4/pubring.gpg' created
+gpg: requesting key 2A74C8B8 from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmp0fgj4wu4/trustdb.gpg: trustdb created
+gpg: key 2A74C8B8: public key "Launchpad PPA for wiznote-team" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: keyring `/tmp/tmpkjmp6fuz/secring.gpg' created
+gpg: keyring `/tmp/tmpkjmp6fuz/pubring.gpg' created
+gpg: requesting key 9E5DB0C8 from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmpkjmp6fuz/trustdb.gpg: trustdb created
+gpg: key 9E5DB0C8: public key "Launchpad PPA for Rico" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: keyring `/tmp/tmp9uinbrhz/secring.gpg' created
+gpg: keyring `/tmp/tmp9uinbrhz/pubring.gpg' created
+gpg: requesting key F59EAE4D from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmp9uinbrhz/trustdb.gpg: trustdb created
+gpg: key F59EAE4D: public key "Launchpad PPA for NoobsLab" imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: keyring `/tmp/tmpbrg99dhl/secring.gpg' created
+gpg: keyring `/tmp/tmpbrg99dhl/pubring.gpg' created
+gpg: requesting key C99E40E1 from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmpbrg99dhl/trustdb.gpg: trustdb created
+gpg: key C99E40E1: public key "Launchpad PPA for spillz" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: keyring `/tmp/tmp2nzo9va2/secring.gpg' created
+gpg: keyring `/tmp/tmp2nzo9va2/pubring.gpg' created
+gpg: requesting key F4FE239D from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmp2nzo9va2/trustdb.gpg: trustdb created
+gpg: key F4FE239D: public key "Launchpad PPA for fossfreedom" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+E: Package 'gimp-helpbrowser' has no installation candidate
+No such key 'Gtk/IMModule' in schema 'org.gnome.settings-daemon.plugins.xsettings' as specified in override file '/usr/share/glib-2.0/schemas/50_sogoupinyin.gschema.override'; ignoring override for this key.
+replace android-studio/Install-Linux-tar.txt? [y]es, [n]o, [A]ll, [N]one, [r]ename: 

@@ -1,14 +1,18 @@
 #! /bin/bash
 
+read -p "Enter you sudo password: " -s PASSWORD
+
 #######################################################################
 # Path
 #######################################################################
-HOME_PATH="~"
 CURRENT_PATH="$(pwd)"
+cd ~
+HOME_PATH="$(pwd)"
 HOSTS_PATH="$CURRENT_PATH/hosts"
 TAR_GZ_PATH="$CURRENT_PATH/tars"
 DEB_PATH="$CURRENT_PATH/debs"
 LOG_PATH="$CURRENT_PATH/logs"
+SCRIPT_PATH="$CURRENT_PATH/scripts"
 
 # APP
 JAVA_PATH="$HOME_PATH/JDK"
@@ -26,6 +30,7 @@ INODE_PATH="$HOME_PATH/iNode"
 function error()
 {
   echo "[ERROR]: $1"
+  echo "$1">>$LOG_PATH/install-log
 }
 
 
@@ -67,14 +72,14 @@ if [ ! -x "$INODE_PATH" ]; then
 fi
 
 touch $LOG_PATH/install-log
-exec 2>$LOG_PATH/install-log
+# exec 2>$LOG_PATH/install-log
 
 
 #######################################################################
 # Update and Upgrade
 #######################################################################
-sudo apt-get update
-sudo apt-get upgrade -y
+echo "$PASSWORD" | sudo -S apt-get update
+echo "$PASSWORD" | sudo -S apt-get upgrade -y
 
 
 #######################################################################
@@ -90,28 +95,33 @@ echo -ne '\n' | sudo add-apt-repository ppa:noobslab/icons
 echo -ne '\n' | sudo add-apt-repository ppa:damien-moore/codeblocks-stable
 # Indicator-sysmonitor
 echo -ne '\n' | sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor
-sudo apt-get update
-sudo apt-get install wiznote docky ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green codeblocks indicator-sysmonitor -y
+echo "$PASSWORD" | sudo -S apt-get update
+echo "$PASSWORD" | sudo -S apt-get install wiznote docky ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green codeblocks indicator-sysmonitor -y
 
 # VLC, Unity Tweak Tool, GIMP, Shutter
-sudo apt-get install vlc unity-tweak-tool gimp gimp-gap gimp-helpbrowser gimp-help-common shutter -y
+echo "$PASSWORD" | sudo -S apt-get install vlc unity-tweak-tool gimp gimp-gap gimp-helpbrowser gimp-help-common shutter -y
 
-# Vim, SSH, Git, Wine
-sudo apt-get install vim openssh-client openssh-server git wine -y
+# Wine: TrueType core fonts for the web eula, eula license terms
+
+# Vim, SSH, Git, Unzip
+echo "$PASSWORD" | sudo -S apt-get install vim openssh-client openssh-server git unzip -y
 
 # Config Git
 git config --global user.name "pentonbin"
 git config --global user.email "pentonbin@gmail.com"
 
-# Unzip
-sudo apt-get install unzip -y
-
 # Install deb packages
 cd $DEB_PATH
 # Dpkg install
-sudo dpkg -i *.deb
+echo "$PASSWORD" | sudo -S dpkg -i *.deb
 # Install dependency
-sudo apt-get -f install -y
+echo "$PASSWORD" | sudo -S apt-get -f install -y
+
+#######################################################################
+# copy the script
+#######################################################################
+chmod a+x $SCRIPT_PATH/*
+echo "$PASSWORD" | sudo cp $SCRIPT_PATH/* /usr/bin/
 
 
 #######################################################################
@@ -140,13 +150,13 @@ if [ ! -z "$jdk_pkg" ]; then
   JRE_HOME="$JAVA_HOME/jre"
 
   # Write profile
-  sudo echo "# JAVA">>/etc/profile
-  sudo echo "export JAVA_HOME=$JAVA_HOME">>/etc/profile
-  sudo echo "export JRE_HOME=$JRE_HOME">>/etc/profile
-  sudo echo 'export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin'>>/etc/profile
-  sudo echo 'export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib'>>/etc/profile
-if
-
+  echo "# JAVA" | sudo tee -a /etc/profile
+  echo "export JAVA_HOME=$JAVA_HOME" | sudo tee -a /etc/profile
+  echo "export JRE_HOME=$JRE_HOME" | sudo tee -a /etc/profile
+  echo 'export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin'  | sudo tee -a /etc/profile
+  echo 'export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib' | sudo tee -a /etc/profile
+  source /etc/profile
+fi
 
 # Android studio
 cd $TAR_GZ_PATH
@@ -203,7 +213,7 @@ fi
 cd $TAR_GZ_PATH
 
 wechat_pkg=$(ls -l | grep -i wechat | awk '{ print $9 }')
-if [ ! -z "" ]; then
+if [ ! -z "$wechat_pkg" ]; then
   cp $wechat_pkg $WECHAT_PATH
   cd $WECHAT_PATH
 
@@ -238,14 +248,16 @@ fi
 #######################################################################
 cd $HOSTS_PATH
 if [ -r "hosts" ]; then
-  sudo cp hosts /etc/
+  echo "$PASSWORD" | sudo -S cp hosts /etc/
 fi
 
 
 #######################################################################
 # Final update & clean
 #######################################################################
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get clean
-sudo apt-get autoremove -y
+echo "$PASSWORD" | sudo -S apt-get update
+echo "$PASSWORD" | sudo -S apt-get upgrade -y
+echo "$PASSWORD" | sudo -S apt-get clean
+echo "$PASSWORD" | sudo -S apt-get autoremove -y
+echo "Finished! Had better reboot the ubuntu!"
+
